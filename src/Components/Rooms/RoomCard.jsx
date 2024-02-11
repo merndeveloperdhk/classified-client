@@ -2,29 +2,30 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types'
 
 const RoomCard = ({ room }) => {
-  const { location, title, price, image } = room;
+  const { location,category, title, price, image,division, _id } = room;
   return (
-    <div>
-      <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 space-y-3 group">
+    <Link to={`/room/${_id}`}>
+      <div  className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 space-y-2 group ">
         <div className="overflow-hidden w-full">
-          <img className=" rounded-t-lg object-cover group-hover:scale-110 duration-500 h-48 " src={image} alt="product image" />
+          <img className=" rounded-t-lg object-cover group-hover:scale-110 duration-500 h-48 w-full " src={image} alt="product image" />
         </div>
-        <div className="px-5 pb-5">
-          <Link>
-            <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+        <div className="px-1 pb-3 space-y-3">
+        
+            <h5 className="text-lg text-center font-semibold tracking-tight text-gray-900 dark:text-white">
               {title}
             </h5>
-          </Link>
+         
 
           <div className="flex items-center justify-between my-2">
             <h5 className=" tracking-tight text-gray-900 dark:text-white">
               {location}
             </h5>
             <h5 className=" tracking-tight text-gray-900 dark:text-white">
-              5 Nights
+              {division}
             </h5>
           </div>
 
+          <div className="flex justify-between items-center">
           <div className="flex items-center mt-2.5 mb-5">
             <div className="flex items-center space-x-1 rtl:space-x-reverse">
               <svg
@@ -77,20 +78,22 @@ const RoomCard = ({ room }) => {
               5.0
             </span>
           </div>
-          <div className="flex items-center justify-between">
+          <h1>{category}</h1>
+          </div>
+          <div className="flex items-center justify-between ">
             <span className="text-xl font-bold text-gray-900 dark:text-white">
               $ {price}/night
             </span>
-            <a
-              href="#"
+            <button
+              
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Details
-            </a>
+            </button>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

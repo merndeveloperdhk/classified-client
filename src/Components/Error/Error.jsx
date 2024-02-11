@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { MdErrorOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
 
@@ -5,6 +6,9 @@ import { Link } from "react-router-dom";
 const Error = () => {
     return (
         <div>
+			<Helmet>
+				<title>Error | future e-commerce</title>
+			</Helmet>
             <section className="flex items-center h-full sm:p-16 dark:bg-gray-900 dark:text-gray-100">
 	<div className="container flex flex-col items-center justify-center px-5 mx-auto my-4 space-y-4 text-center sm:max-w-md">
     <h2 className="mb-2 font-extrabold text-7xl text-red-500 ">

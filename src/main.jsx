@@ -16,6 +16,22 @@ import AddPorducts from "./Components/Products/AddPorducts";
 import LiveChat from "./Components/LiveChat/LiveChat";
 import Contact from "./Components/Contact/Contact";
 import Error from "./Components/Error/Error";
+import RoomDetails from "./Components/Pages/RoomDetails";
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import Stores from "./Components/Stores/Stores";
+import axios from "axios";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
+
+axios.defaults.baseURL = "http://localhost:5000" //for axios use 
+axios.interceptors.request.use(request => {
+  console.log("From main.js Request", request);
+  return request;
+})
+axios.interceptors.response.use(response => {
+  console.log("From main.js Response", response);
+  return response;
+})
 
 const router = createBrowserRouter([
   {
@@ -26,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/room/:id",
+        element: <RoomDetails></RoomDetails>
       },
 
       {
@@ -54,6 +74,14 @@ const router = createBrowserRouter([
         path: "/addProduct",
         element: <AddPorducts></AddPorducts>,
       },
+      {
+        path: "/addProducts",
+        element: <PrivateRoute><AddPorducts></AddPorducts></PrivateRoute>
+      },
+      {
+        path:'/stores',
+        element:<Stores></Stores>
+      }
     ],
   },
   {

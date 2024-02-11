@@ -1,26 +1,99 @@
 import { Helmet } from "react-helmet";
 import { categories } from "./../Categories/categoriesData";
+import {divisions} from "./../Categories/divisionData";
+import { districts } from "../Categories/districtsData";
+import { upazilas } from "../Categories/upazilaData";
 import { useSearchParams } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
+/*  const img_hosting_api = import.meta.env.VITE_IMG_HOSTING_KEY;
+const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_api}`;  */
 
 const AddPorducts = () => {
-  const[params, setParams] = useSearchParams();
-  const category = params.get('category');
+  const [params, setParams] = useSearchParams();
+  const category = params.get("category");
+  const division = params.get("division");
+  const district = params.get("district");
+  const upazila = params.get("upazila");
   console.log(category);
 
-  const handleAddProduct = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const name = form.name.value;
+
+
+  const handleAddProduct = async (data) => {
+    data.preventDefault();
+    const form = data.target;
+    const title = form.title.value;
+    const price = form.price.value;
+    const date = form.date.value;
+    const details = form.details.value;
     const category = form.category.value;
-    console.log(name, category);
+    const district = form.district.value;
+    const upazila = form.upazila.value;
+    const description = form.description.value;
+    const number = form.number.value;
+  
+    //img upload to imgbb and get url
+  /*  const image = form.image.files[0];
+    const formData = new FormData();
+    formData.append("image", image);
+    const url = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_IMG_HOSTING_KEY
+    }`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imageData) => {
+        const imageUrl = imageData.data.display_url;
+        console.log(imageUrl);
+        return imageUrl;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });  
+      console.log("data",data);  */
+       
+    const fullAddress = form.fullAddress.value;
+    const division = form.division.value;
+    const allDetails = {
+      title,
+      price,
+      date,
+      details,
+      location,
+      category,
+      description,
+      fullAddress,
+      number,
+      division,
+      district,
+      upazila,
+     
+    };
+    console.log("all details",allDetails);
+
+    const productsAdd = await axios.post(
+      "http://localhost:5000/rooms",allDetails
+    );
+    console.log(productsAdd);
+    if (productsAdd.data.insertedId) {
+      
+      //show pop up
+      toast.success("Recipe uploaded successfully completed.");
+    } else {
+      toast.error("failed");
+    }
+
+    
   };
   return (
-    <div className="w-full mx-auto text-center mt-8">
+    <div className="w-full mx-auto text-center mt-8 p-2">
       <Helmet>
         <title>Add Products | future ecommerce website</title>
       </Helmet>
-      <h1 className="text-2xl font-bold mb-2 ">Add Your Product</h1>
-      <hr className="w-1/3 mx-auto border-1 border-black mb-4" />
+      <h1 className="text-2xl font-bold mb-2 text-green-500">Add Your Product</h1>
+      <hr className="w-1/3 mx-auto border-1 border-green-600 mb-4" />
 
       <form onSubmit={handleAddProduct} className="max-w-md mx-auto">
         <div className="grid md:grid-cols-2 md:gap-6">
@@ -31,7 +104,7 @@ const AddPorducts = () => {
               id="title"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              required
+              
             />
             <label
               htmlFor="title"
@@ -48,7 +121,7 @@ const AddPorducts = () => {
               id="price"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              required
+              // required
             />
             <label
               htmlFor="price"
@@ -62,37 +135,37 @@ const AddPorducts = () => {
           <div className="relative z-0 w-full mb-5 group">
             <input
               type="date"
-              name="from_date"
-              id="from_date"
+              name="date"
+              id="date"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              required
+              // required
             />
             <label
               htmlFor="from_date"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              From date
+              date
             </label>
           </div>
           <div className="relative z-0 w-full mb-5 group">
             <input
-              type="date"
-              name="to_date"
-              id="to_date"
+              type="text"
+              name="details"
+              id="details"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              required
+              // required
             />
             <label
-              htmlFor="to_date"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              htmlFor="details"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              To Date
+              Details
             </label>
           </div>
         </div>
-        <div className="grid md:grid-cols-2 md:gap-6">
+       {/*  <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
             <input
               type="text"
@@ -100,7 +173,7 @@ const AddPorducts = () => {
               id="location"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              required
+              // required
             />
             <label
               htmlFor="location"
@@ -116,7 +189,7 @@ const AddPorducts = () => {
               id="fullAddress"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              required
+              // required
             />
             <label
               htmlFor="fullAddress"
@@ -125,67 +198,33 @@ const AddPorducts = () => {
               Full address
             </label>
           </div>
-        </div>
+        </div> */}
         <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
             <input
-              type="password"
-              name="repeat_password"
-              id="repeat_password"
+              type="text"
+              name="number"
+              id="number"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              required
             />
             <label
-              htmlFor="repeat_password"
+              htmlFor="number"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Confirm{" "}
+              Mobile Number{" "}
             </label>
           </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="password"
-              name="floating_repeat_password"
-              id="floating_repeat_password"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
-            />
-            <label
-              htmlFor="floating_repeat_password"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Confirm{" "}
-            </label>
-          </div>
-          
-        </div>
-        <div className="relative z-0 grid md:grid-cols-1 w-full mb-5 ">
-          
-            <label
-              htmlFor="description"
-              className="text-start mb-2"
-            >
-              Description{" "}
-            </label>
-         
-          <textarea id="description" className="w-full border h-28  py-1 px-0 text-sm text-gray-900 bg-transparent border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
-            
-            </textarea>
-            
-          </div>
-
-        <div className="grid md:grid-cols-2 md:gap-6">
-          <div className="relative z-0 w-full mb-5 group">
+            {/* file */}
+            <div className="relative z-0 w-full mb-5 group">
             <div className="flex items-center justify-center w-full">
-              <label
+             <label
                 htmlFor="dropzone-file"
-                className="flex flex-col items-center justify-center w-full h-20 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                className="flex flex-col items-center justify-center w-full h-12 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
               >
                 <div className="flex flex-col items-center justify-center pt-4 pb-2">
                   <svg
-                    className="w- h-6 mb-1 text-gray-500 dark:text-gray-400"
+                    className="w- h-4 mb-1 text-gray-500 dark:text-gray-400"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -197,19 +236,99 @@ const AddPorducts = () => {
                     />
                   </svg>
                   <p className="mb-2 px-1 text-sm text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">Click to upload</span> or
+                    <span className="font-semibold text-xs">Click to upload</span> or
                     drag and drop
                   </p>
-                  {/* <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p> */}
                 </div>
-                <input id="dropzone-file" type="file" className="hidden" />
-              </label>
+                </label> 
+              {/*   <input
+              type="file"
+              name="image"
+              id="image"
+              accept="image/*"
+              className="w-full  py-1 rounded-md border-red-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400"
+            /> */}
+              
             </div>
           </div>
+          
+        </div>
+
+        <div className="grid md:grid-cols-2 md:gap-6 items-center">
+         
+          {/* Division */}
           <div className="relative z-0 w-full mb-5 group">
             <label
-              htmlFor="category"
+              htmlFor="division"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Select Division
+            </label>
+            <select
+              id="division"
+              name="division"
+              defaultValue="default"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              {
+                divisions.map((division, idx) => (
+                  <option key={idx}>{division.division}</option>
+                ))
+              }
+             
+            </select>
+          </div>
+            {/* District */}
+            <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="district"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Select District
+            </label>
+            <select
+              id="district"
+              name="district"
+              defaultValue="default"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              {
+                districts.map((district, idx) => (
+                  <option key={idx}>{district.name}</option>
+                ))
+              }
+             
+            </select>
+          </div>
+         
+        </div>
+        {/* District and upazila */}
+        <div className="grid md:grid-cols-2 md:gap-6 items-center">
+         
+        
+          {/* Upazila */}
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="upazila"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Select Upazila
+            </label>
+            <select
+              id="upazila"
+              name="upazila"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              {upazilas.map((upazila, idx) => (
+                <option key={idx}>{upazila.name}</option>
+              ))}
+            </select>
+          </div>
+           {/* Category */}
+           <div className="relative z-0 w-full mb-5 group ">
+            <label
+              htmlFor="category"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white "
             >
               Select Category
             </label>
@@ -218,17 +337,42 @@ const AddPorducts = () => {
               name="category"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
-              {
-                categories.map((category, idx) =><option
-                 key={idx}
-                 >
-                  {category.label}
-                 </option> )
-              }
-              
+              {categories.map((category, idx) => (
+                
+                <option key={idx} >{category.label}</option>
+              ))}
             </select>
           </div>
         </div>
+        {/* District and upazila end */}
+        <div className="relative z-0 w-full mb-5 group">
+            <input
+              type="text"
+              name="fullAddress"
+              id="fullAddress"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder="Exp: Vill, Union, Word no, house no "
+              // required
+            />
+            <label
+              htmlFor="fullAddress"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Full address
+            </label>
+          </div>
+        <div className="relative z-0 grid md:grid-cols-1 w-full mb-5 ">
+          <label htmlFor="description" className="text-start mb-2">
+            Description{" "}
+          </label>
+
+          <textarea
+            id="description"
+            name="description"
+            className="w-full border h-28  py-1 px-0 text-sm text-gray-900 bg-transparent border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          ></textarea>
+        </div>
+        
         <button
           type="submit"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

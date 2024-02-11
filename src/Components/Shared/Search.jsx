@@ -5,12 +5,11 @@ const Search = () => {
   return (
     <div className="border-[1px] w-full md:w-auto py-1 rounded-full shadow-sm hover:shadow-md transition cursor-pointer">
       <div className="flex flex-row items-center justify-between">
-        <div className="hidden sm:block text-sm font-semibold pl-4 pr-3 border-r-[1px]">
-          <NavLink to="/" className="hover:text-green-600">Home</NavLink>
-        </div>
-        <div className="hidden sm:block text-sm font-semibold px-3 border-r-[1px] flex-1 text-center">
-          <NavLink to="/allProducts" className="hover:text-green-600">AllProducts</NavLink>
-        </div>
+        
+          <NavLink to="/" className="hover:text-green-600 hidden sm:block text-sm font-semibold pl-4 pr-3 border-r-[1px]">Home</NavLink>
+        
+          <NavLink to="/allProducts" className="hover:text-green-600 hidden sm:block text-sm font-semibold px-3 border-r-[1px] flex-1 text-center">AllProducts</NavLink>
+        
         <div className="hidden sm:block text-sm font-semibold px-3 border-r-[1px] flex-1 text-center">
           <NavLink to='/stores' className="hover:text-green-600">Stores</NavLink>
         </div>

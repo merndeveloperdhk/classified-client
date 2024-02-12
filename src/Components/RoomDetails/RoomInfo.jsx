@@ -15,7 +15,7 @@ const RoomInfo = ({ room }) => {
             <div>Hosted by {room?.host?.name}</div>
   
             <img
-              className='rounded-full'
+              className='rounded-full '
               height='30'
               width='30'
               alt='Avatar'

@@ -19,11 +19,11 @@ const Search = () => {
         <div className="hidden sm:block text-sm font-semibold px-3 border-r-[1px] flex-1 text-center">
           <NavLink to="/contact" className="hover:text-green-600">Contact</NavLink>
         </div>
-        <div className="text-sm px-3 text-gray-600 flex flex-row items-center gap-3 border-r-[1px]">
+       {/*  <div className="text-sm px-3 text-gray-600 flex flex-row items-center gap-3 border-r-[1px]">
           <div className="hidden sm:block">
             <NavLink to="/addProduct" className="hover:text-green-600">Add Products</NavLink>
           </div>
-        </div>
+        </div> */}
         {/* Search button */}
         <div className="relative">
           <input

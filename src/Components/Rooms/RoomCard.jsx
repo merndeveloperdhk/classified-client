@@ -5,11 +5,11 @@ const RoomCard = ({ room }) => {
   const { title, price, details,location, image, category, district, upazila, description, number, fullAddress, division, _id } = room;
   return (
     <Link to={`/room/${_id}`}>
-      <div  className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 space-y-2 group ">
+      <div  className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 space-y-2 group h-[420px] relative">
         <div className="overflow-hidden w-full">
           <img className=" rounded-t-lg object-cover group-hover:scale-110 duration-500 h-48 w-full " src={image} alt="product image" />
         </div>
-        <div className="px-1 pb-3 space-y-3">
+        <div className="px-1 pb-3 space-y-3  ">
         
             <h5 className="text-lg text-center font-semibold tracking-tight text-gray-900 dark:text-white">
               {title}
@@ -80,13 +80,13 @@ const RoomCard = ({ room }) => {
           </div>
           <h1>{category}</h1>
           </div>
-          <div className="flex items-center justify-between ">
+          <div className="flex items-center justify-between w-full absolute bottom-2 px-2">
             <span className="text-xl font-bold text-gray-900 dark:text-white">
               $ {price}/night
             </span>
             <button
               
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-block"
             >
               Details
             </button>

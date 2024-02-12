@@ -41,13 +41,15 @@ const RelatedProducts = () => {
     return (
         <div>
              <div className="col-span-10">
+              <h1 className="text-center text-xl font-bold">Related Products</h1>
+              <div className="divider w-1/3 mx-auto my-1"></div>
               
             {
               rooms && rooms.length > 0 ? (
                   
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-2 ">
                   {rooms.slice(0,4).map((room) => (
-                    <div key={room._id}  className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 space-y-2 group ">
+                    <Link  to={`/room/${room._id}`} key={room._id}  className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 space-y-2 group h-[400px] relative">
                     <div className="overflow-hidden w-full">
                       <img className=" rounded-t-lg object-cover group-hover:scale-110 duration-500 h-48 w-full " src={room.image} alt="product image" />
                     </div>
@@ -120,19 +122,19 @@ const RelatedProducts = () => {
                       </div>
                       <h1 className="text-base">{room.category}</h1>
                      </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between w-full absolute bottom-2 px-2">
                         <span className="text-xl font-bold text-gray-900 dark:text-white">
                           $ {room.price}/night
                         </span>
-                        <Link to={`/room/${room._id}`}
+                        <button 
                           
-                          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-block"
                         >
                           Details
-                        </Link>
+                        </button>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                   ))}
                 </div>
               ) : (

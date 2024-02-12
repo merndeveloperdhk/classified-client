@@ -8,6 +8,8 @@ import RoomInfo from "../RoomDetails/RoomInfo";
 import RoomReservation from "../RoomDetails/RoomReservation";
 import RelatedProducts from "../Rooms/RelatedProducts";
 import axios from "axios";
+import RoomCard from "../Rooms/RoomCard";
+import RoomDetailsRight from "./RoomDetailsRight";
 
 const RoomDetails = () => {
   const { id } = useParams();
@@ -58,8 +60,8 @@ const RoomDetails = () => {
                 </div>
               </div>
               {/* Right side */}
-              <div className="col-span-4 bg-sky-100 md:mt-12">
-                <h1>right</h1>
+              <div className="col-span-4 bg-gray-50 md:mt-12">
+                <RoomDetailsRight room={room}></RoomDetailsRight>
               </div>
             </div>
           </div>

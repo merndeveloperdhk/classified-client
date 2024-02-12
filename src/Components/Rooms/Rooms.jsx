@@ -13,7 +13,7 @@ const Rooms = () => {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const category = params.get("category");
-  console.log("from Rooms:", category);
+  // console.log("from Rooms:", category);
 
   // for randomly show
   function shuffleArray(array) {

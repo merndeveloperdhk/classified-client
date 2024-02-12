@@ -25,11 +25,11 @@ import DashboardLayout from "./Components/Layout/DashboardLayout";
 
 axios.defaults.baseURL = "http://localhost:5000" //for axios use 
 axios.interceptors.request.use(request => {
-  console.log("From main.js Request", request);
+  // console.log("From main.js Request", request);
   return request;
 })
 axios.interceptors.response.use(response => {
-  console.log("From main.js Response", response);
+  // console.log("From main.js Response", response);
   return response;
 })
 
@@ -70,10 +70,7 @@ const router = createBrowserRouter([
         element: <MensWears></MensWears>,
         loader: () => fetch("http://localhost:5000/allProducts"),
       },
-      {
-        path: "/addProduct",
-        element: <AddPorducts></AddPorducts>,
-      },
+      
       {
         path: "/addProducts",
         element: <AddPorducts></AddPorducts>

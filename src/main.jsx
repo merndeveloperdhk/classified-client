@@ -1,4 +1,4 @@
-import React from "react";
+
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import  { Toaster } from 'react-hot-toast';
@@ -21,7 +21,7 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import Stores from "./Components/Stores/Stores";
 import axios from "axios";
-import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import DashboardLayout from "./Components/Layout/DashboardLayout";
 
 axios.defaults.baseURL = "http://localhost:5000" //for axios use 
 axios.interceptors.request.use(request => {
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/addProducts",
-        element: <PrivateRoute><AddPorducts></AddPorducts></PrivateRoute>
+        element: <AddPorducts></AddPorducts>
       },
       {
         path:'/stores',
@@ -92,13 +92,24 @@ const router = createBrowserRouter([
     path: "/resetPassword",
     element: <ResetPassword></ResetPassword>,
   },
+  {
+    path:'/dashboard',
+    element:<DashboardLayout></DashboardLayout>,
+    children:[
+      {
+        path:'/dashboard/addProducts',
+        element:<AddPorducts></AddPorducts>
+      }
+    ]
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  //React.StrictMode
+  <>
     <AuthProvider>
       <RouterProvider router={router} />
       <Toaster />
     </AuthProvider>
-  </React.StrictMode>
+  </>
 );

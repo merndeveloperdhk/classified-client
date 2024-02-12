@@ -5,6 +5,8 @@ import { TbFidgetSpinner } from "react-icons/tb";
 import { AuthContext } from './Provider/AuthProvider';
 import Swal from 'sweetalert2';
 import SocialLogin from './Shared/SocialLogin';
+import toast from 'react-hot-toast';
+import { saveUser } from '../api/auth';
 
 const Login = () => {
     const[showPassword, setShowPassword] = useState(false);
@@ -28,13 +30,17 @@ const Login = () => {
       // user login
       logIn(email, password)
       .then(result =>{
-        Swal.fire({
+        toast.success('Log in Successfully');
+        // from auth js file
+        saveUser(result.user)
+       /*  Swal.fire({
           position: 'top-end',
           icon: 'success',
           title: 'Log in Successfully',
           showConfirmButton: false,
           timer:500
-        }) 
+        })  */
+        
         console.log(result.user);
         setSuccess(result.user)
         navigate(from, {replace: true});

@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
-import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { saveUser } from "../../api/auth";
 
 
 const SocialLogin = () => {
@@ -16,15 +16,16 @@ const SocialLogin = () => {
      const handleGoogleSignIn = () =>{
         googleSingIn()
         .then(result =>{
-          console.log(result.user);
-          // toast.success('Log in Successfully')
-          Swal.fire({
+          toast.success('Google Log in Successfully');
+          // form auth js file
+          saveUser(result.user)
+        /*   Swal.fire({
             position: 'top-end',
             icon: 'success',
             title: 'Log in Successfully',
             showConfirmButton: false,
             timer:500
-          }) 
+          })  */
           setSuccess(result.user)
           navigate(from, {replace: true});
         })

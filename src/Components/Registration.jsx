@@ -5,6 +5,7 @@ import { AuthContext } from "./Provider/AuthProvider";
 import toast from "react-hot-toast";
 import SocialLogin from "./Shared/SocialLogin";
 import { TbFidgetSpinner } from "react-icons/tb";
+import { saveUser } from "../api/auth";
 
 const Registration = () => {
   const [displayName, setDisplayName] = useState("");
@@ -45,12 +46,14 @@ const Registration = () => {
         //Create user
         createUser(email, password)
         .then((result) => {
-          toast.success(result.user)
+          toast.success(result.user);
+          navigate(from, { replace: true });
           updateUserProfile(name, imageUrl)
             .then(() => {
-              // console.log(result.user);
-              toast.success('update success')
-              navigate(from, { replace: true });
+              toast.success('update success');
+              // from auth js file
+              saveUser(result.user)
+             
               
             })
 

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types'
 
 const RoomCard = ({ room }) => {
-  const { location,category, title, price, image,division, _id } = room;
+  const { title, price, details,location, image, category, district, upazila, description, number, fullAddress, division, _id } = room;
   return (
     <Link to={`/room/${_id}`}>
       <div  className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 space-y-2 group ">

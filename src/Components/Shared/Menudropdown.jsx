@@ -74,7 +74,7 @@ const MenuDropdown = () => {
                   <h1>{user ? user.displayName : " "}</h1>
                 </div>
                 <div className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer">
-                  <Link>Dashboard</Link>
+                  <Link to='dashboard'>Dashboard</Link>
                 </div>
 
                 <div

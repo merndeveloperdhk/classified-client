@@ -6,7 +6,7 @@ import { categories } from "./categoriesData";
 const Catories = () => {
     const[params] = useSearchParams();
   const category = params.get('category');
-  console.log(category);
+//   console.log(category);
     return (
         <div>
             <Container>

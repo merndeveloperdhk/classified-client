@@ -23,10 +23,6 @@ const Search = () => {
           <div className="hidden sm:block">
             <NavLink to="/addProduct" className="hover:text-green-600">Add Products</NavLink>
           </div>
-          {/* <div className="p-2 bg-rose-500 rounded-full text-white">
-           
-            <BiSearch size={18} />
-          </div> */}
         </div>
         {/* Search button */}
         <div className="relative">

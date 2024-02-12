@@ -9,7 +9,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 const Navbar = () => {
     const {user} = useContext(AuthContext)
     return (
-        <div className="fixed w-full bg-white z-10 shadow-sm">
+        <div className="fixed w-full bg-white z-10 shadow-sm ">
                 <Container>
                         <h1>Welcome <span className="font-bold">{user? <span>{user.email} : {user.displayName}</span>: 'Guest'}</span></h1>
             <div className="py-3 border-b-[1px]">
